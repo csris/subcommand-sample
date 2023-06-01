@@ -2,20 +2,15 @@ from __future__ import annotations
 
 import argparse
 
-from . import baz, qux
 
-
-COMMAND_NAME = "bar"
+COMMAND_NAME = "baz"
 
 
 def add_parser(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
     parser_bar = subparsers.add_parser(COMMAND_NAME)
-
-    child_parsers = parser_bar.add_subparsers(required=True)
-
-    baz.add_parser(child_parsers)
-    qux.add_parser(child_parsers)
+    parser_bar.add_argument("i")
+    parser_bar.set_defaults(func=bar)
 
 
 def bar(args: argparse.Namespace) -> None:
-    print("((%s))" % args.z)
+    print("[%s]" % args.i)
